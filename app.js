@@ -3,6 +3,9 @@ var bodyParser = require("body-parser");
 var fs = require("fs");
  
 var app = express();
+var port = process.env.PORT || 8080;
+app.set('view engine', 'ejs');
+
 var jsonParser = bodyParser.json();
  
 app.use(express.static(__dirname + "/public"));
@@ -120,6 +123,7 @@ app.put("/api/users", jsonParser, function(req, res){
     }
 });
 
-app.listen(3000, function(){
+app.listen(port, function(){
     console.log("Сервер ожидает подключения...");
+    console.log('Our app is running on http://localhost:' + port);
 });
