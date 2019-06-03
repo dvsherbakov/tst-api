@@ -22,6 +22,22 @@ app.get("/api/authors", function (req, res){
     //console.log(jContent.articles[0]);
     res.send(jContent.authors);
 });
+app.get("/api/words", function(req, res){
+    const fContent = fs.readFileSync("words.json", "utf8");
+    const jContent = JSON.parse(fContent);
+    res.send(jContent.words);
+})
+app.get("/api/words/:id", function(req, res){
+    const charCount = +req.params.id;
+    const fContent = fs.readFileSync("words.json", "utf8");
+    const jContent = JSON.parse(fContent);
+    const words = jContent.words.filter(w => w.length === charCount);
+    if (words) {
+        res.send(words);
+    } else {
+        res.status(404).send;
+    }
+})
 app.get("/api/users", function(req, res){    
     var content = fs.readFileSync("users.json", "utf8");
     var users = JSON.parse(content);
@@ -29,7 +45,6 @@ app.get("/api/users", function(req, res){
 });
 // получение одного пользователя по id
 app.get("/api/users/:id", function(req, res){
-      
     var id = req.params.id; // получаем id
     var content = fs.readFileSync("users.json", "utf8");
     var users = JSON.parse(content);
