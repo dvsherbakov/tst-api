@@ -13,8 +13,14 @@ app.use(express.static(__dirname + "/public"));
 app.get("/api/articles", function(req, res) {
     const fContent = fs.readFileSync("content.json", "utf8");
     const jContent = JSON.parse(fContent);
-    console.log(jContent.articles[0]);
-    res.send(jContent);
+    //console.log(jContent.articles[0]);
+    res.send(jContent.articles);
+});
+app.get("/api/authors", function (req, res){
+    const fContent = fs.readFileSync("content.json", "utf8");
+    const jContent = JSON.parse(fContent);
+    //console.log(jContent.articles[0]);
+    res.send(jContent.authors);
 });
 app.get("/api/users", function(req, res){    
     var content = fs.readFileSync("users.json", "utf8");
